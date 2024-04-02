@@ -55,3 +55,17 @@ Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/
 ---
 
 <sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+
+
+
+## Build Docker
+
+docker login -u AWS -p $( aws ecr get-login-password --region eu-north-1 --profile strapiAdmin) 435051421889.dkr.ecr.eu-north-1.amazonaws.com
+
+docker build --build-arg NODE_ENV=production -t strapi .
+docker tag strapi:latest 435051421889.dkr.ecr.eu-north-1.amazonaws.com/strapi:latest
+docker push 435051421889.dkr.ecr.eu-north-1.amazonaws.com/strapi:latest
+
+
+# Run docker
+docker run -d -p 80:1337 sh_stapi
