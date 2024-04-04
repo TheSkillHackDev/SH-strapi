@@ -13,5 +13,19 @@ export default ({ env }) => ({
                 }
             },
         },
-    }
+    },
+    email: {
+        config: {
+          provider: 'amazon-ses',
+          providerOptions: {
+            key: env('USE_ACCESS_KEY_ID'),
+            secret: env('USE_ACCESS_SECRET'),
+            amazon: 'https://email.eu-north-1.amazonaws.com',
+          },
+          settings: {
+            defaultFrom: 'dev@theskillhack.com',
+            defaultReplyTo: 'dev@theskillhack.com',
+          },
+        },
+      },
   });
