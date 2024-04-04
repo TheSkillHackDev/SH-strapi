@@ -829,6 +829,100 @@ export interface PluginPublisherAction extends Schema.CollectionType {
   };
 }
 
+export interface ApiBlogpaostBlogpaost extends Schema.CollectionType {
+  collectionName: 'blogpaosts';
+  info: {
+    singularName: 'blogpaost';
+    pluralName: 'blogpaosts';
+    displayName: 'Blogpost';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    Header: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    relatedposts: Attribute.Relation<
+      'api::blogpaost.blogpaost',
+      'oneToMany',
+      'api::blogpaost.blogpaost'
+    >;
+    htmlText: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'HTML';
+          preset: 'rich';
+        }
+      > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::blogpaost.blogpaost',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::blogpaost.blogpaost',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::blogpaost.blogpaost',
+      'oneToMany',
+      'api::blogpaost.blogpaost'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiLinkLink extends Schema.SingleType {
+  collectionName: 'links';
+  info: {
+    singularName: 'link';
+    pluralName: 'links';
+    displayName: 'Link';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Visibletext: Attribute.String;
+    url: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::link.link', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::link.link', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -848,6 +942,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::publisher.action': PluginPublisherAction;
+      'api::blogpaost.blogpaost': ApiBlogpaostBlogpaost;
+      'api::link.link': ApiLinkLink;
     }
   }
 }

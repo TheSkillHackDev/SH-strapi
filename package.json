@@ -4,12 +4,13 @@
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
-    "dev": "export NODE_TLS_REJECT_UNAUTHORIZED='0' && strapi develop",
+    "dev": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"
   },
   "dependencies": {
+    "@ckeditor/strapi-plugin-ckeditor": "^0.0.11",
     "@strapi/plugin-cloud": "4.22.0",
     "@strapi/plugin-i18n": "4.22.0",
     "@strapi/plugin-users-permissions": "4.22.0",
